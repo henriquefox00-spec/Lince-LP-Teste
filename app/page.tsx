@@ -110,19 +110,25 @@ function Navbar() {
 }
 
 function Hero() {
-  const [mounted, setMounted] = useState(false);
-  const [particles, setParticles] = useState<{ id: number; left: string; top: string; duration: number; delay: number }[]>([]);
+  const [heroState, setHeroState] = useState<{ mounted: boolean; particles: { id: number; left: string; top: string; duration: number; delay: number }[] }>({
+    mounted: false,
+    particles: [],
+  });
 
   useEffect(() => {
-    setMounted(true);
-    setParticles(Array.from({ length: 5 }).map((_, i) => ({
-      id: i,
-      left: `${Math.random() * 80 + 10}%`,
-      top: `${Math.random() * 80 + 10}%`,
-      duration: Math.random() * 4 + 4,
-      delay: Math.random() * 2,
-    })));
+    setHeroState({
+      mounted: true,
+      particles: Array.from({ length: 5 }).map((_, i) => ({
+        id: i,
+        left: `${Math.random() * 80 + 10}%`,
+        top: `${Math.random() * 80 + 10}%`,
+        duration: Math.random() * 4 + 4,
+        delay: Math.random() * 2,
+      })),
+    });
   }, []);
+
+  const { mounted, particles } = heroState;
 
   return (
     <section id="sobre" className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-20 pb-32">
